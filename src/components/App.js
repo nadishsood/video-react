@@ -12,6 +12,10 @@ class App extends React.Component{
     //start as an empty array not as a null variable or something. 
     state = {videos: [], selectedVideo : null};
 
+    componentDidMount(){
+        this.onTermSubmit('John Mayer');
+    }
+
     onTermSubmit= async (term)=>{
        
         const response = await youtube.get("/search", {
@@ -23,7 +27,7 @@ class App extends React.Component{
             q:term
           }
         });
-        this.setState({videos: response.data.items, selectedVideo:null});
+        this.setState({videos: response.data.items, selectedVideo:response.data.items[0]});
     }
 
     onVideoSelect = (video) =>{
